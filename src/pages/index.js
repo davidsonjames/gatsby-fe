@@ -1,13 +1,24 @@
 import React from 'react'
-import Link from 'gatsby-link'
 
-const IndexPage = () => (
-  <div>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
-  </div>
-)
+class IndexArticles extends React.Component {
 
-export default IndexPage
+  render() {
+    const articles = this.props.data.allNodeArticle.edges
+    const articleTitles = articles.map(article => <li>{ article.node.title }</li>)
+    return <ul>{articleTitles}</ul>
+  }
+}
+
+export default IndexArticles
+
+export const query = graphql`
+  query pageQuery {
+    allNodeArticle {
+      edges {
+        node {
+          title
+        }
+      }
+    }
+  }
+  `
